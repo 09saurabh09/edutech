@@ -1,3 +1,4 @@
+const {allowedStates} = require('./questionConfig');
 const questionSchema = new MONGOOSE.Schema({
   title: String,
   author: String,
@@ -10,7 +11,7 @@ const questionSchema = new MONGOOSE.Schema({
   chapter: {
     type: MONGOOSE.Schema.Types.ObjectId, ref: 'Chapter'
   },
-  state: { type: String, default: "open" },
+  state: { type: String, default: "open", enum: allowedStates },
   creater: { type: MONGOOSE.Schema.Types.ObjectId, ref: 'User' },
   approver: { type: MONGOOSE.Schema.Types.ObjectId, ref: 'User' },
   comments: [{

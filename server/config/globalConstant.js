@@ -4,6 +4,9 @@ global.NODE_ENV = process.env.NODE_ENV;
 const redis = require('redis');
 const bluebird = require('bluebird');
 const moment = require('moment');
+const AppError = require('../utils/appError');
+const responseHelper = require('../utils/responseHelper');
+const responseMessage = require('../utils/responseMessage');
 let config;
 
 
@@ -19,6 +22,9 @@ global._ = require('lodash');
 global.MONGOOSE = require('mongoose');
 global.PROMISE = bluebird;
 global.REDIS_CLIENT = client;
+global.APP_ERROR = AppError;
+global.RESPONSE_HELPER = responseHelper;
+global.RESPONSE_MESSAGE = responseMessage;
 global.LOGGER = (text) => {
 	console.log(text + " timestamp - " + moment().format());
 };

@@ -2,6 +2,8 @@ const subjectService = require('./subjectService');
 
 module.exports = {
     async createSubject(ctx, next) {
-        ctx.body = await subjectService.createSubject(ctx.request.body, ctx.state.user);
+        let response = new RESPONSE_MESSAGE.GenericSuccessMessage();
+        response.data = await subjectService.createSubject(ctx.request.body, ctx.state.user);
+        RESPONSE_HELPER({ctx, response});
     }
 }

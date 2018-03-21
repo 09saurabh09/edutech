@@ -39,6 +39,9 @@
       "HOST_SOURCE_KEY": true,
       "REDIS_URL": false,
       "MONGO_URL": false,
-      "MONGOOSE": false
+      "MONGOOSE": false,
+      "APP_ERROR": false,
+      "RESPONSE_HELPER": false,
+      "RESPONSE_MESSAGE": false
     }
   }

@@ -7,7 +7,7 @@ module.exports = {
 
     async authenticate(params) {
         const user = await UserModel.findOne({email: params.user.email}).lean().exec();
-        if (!await UserModel.comparePassword(params.user.password, user.password)) throw new Error(`Invalid password`);
+        if (!await UserModel.comparePassword(params.user.password, user.password)) throw new APP_ERROR({message: `Invalid password`, status: 401});
         user.token = jwt.sign({ id: user._id }, GlobalConstant.tokenSecret, {
             expiresIn: GlobalConstant.tokenValidity // expires depend on env
         });

@@ -1,0 +1,6 @@
+{
+    "allowedByUser": ["title", "concepts", "options", "chapter"],
+    "allowedByApprover": ["state"],
+    "allowedStates": ["open", "rejected", "resubmit", "approved"],
+    "nonTerminalStates": ["open", "resubmit"]
+}
