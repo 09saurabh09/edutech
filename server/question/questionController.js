@@ -47,5 +47,11 @@ module.exports = {
         let response = new RESPONSE_MESSAGE.GenericSuccessMessage();
         response.data = await questionService.resubmitQuestion(ctx.params, ctx.request.body, ctx.state.user);
         RESPONSE_HELPER({ctx, response});
+    },
+
+    async getQuestionById(ctx) {
+        let response = new RESPONSE_MESSAGE.GenericSuccessMessage();
+        response.data = await questionService.getQuestionById(ctx.params);
+        RESPONSE_HELPER({ctx, response});
     }
 }

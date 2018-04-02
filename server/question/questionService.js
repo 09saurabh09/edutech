@@ -51,5 +51,9 @@ module.exports = {
         question.set(_.pick(payload, allowedByUser));
         question.state = "open";
         return question.save();
+    },
+
+    async getQuestionById(params) {
+        return QuestionModel.findOne({_id: params.questionId}).populate('chapter');
     }
 }

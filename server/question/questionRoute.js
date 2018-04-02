@@ -5,11 +5,17 @@ const router = new Router({
 	prefix: '/api/questions'
 });
 
+const internalRouter = new Router({
+	prefix: '/internal/api/questions'
+});
+
 const questionController = require('./questionController');
 
 router.post('/', questionController.createQuestion);
 
 router.get('/', questionController.listQuestionsByUser);
+
+internalRouter.get('/:questionId', questionController.getQuestionById);
 
 router.get('/custom', questionController.listQuestions);
 
@@ -23,4 +29,4 @@ router.post('/approve/:questionId', questionController.approveQuestion);
 
 router.post('/:questionId/comments', questionController.addComment);
 
-module.exports = {router};
+module.exports = {router, internalRouter};

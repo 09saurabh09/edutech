@@ -7,7 +7,13 @@ const questionSchema = new MONGOOSE.Schema({
       type: MONGOOSE.Schema.Types.ObjectId, ref: 'Concept'
     }, weight: Number, _id: false
   }],
-  options: [{ option: String, breakage: {}, _id: false }],
+  difficulty: {
+    type: Number, 
+    required: true,
+    min: [1, "Minimum difficulty can be 1"],
+    max: [5, "Maximum difficulty can be 5"]
+  },
+  options: [{ option: String, breakage: {}, isCorrect: {type: Boolean, default: false} }],
   chapter: {
     type: MONGOOSE.Schema.Types.ObjectId, ref: 'Chapter'
   },
@@ -21,5 +27,12 @@ const questionSchema = new MONGOOSE.Schema({
 }, {
     timestamps: true
   });
+
+// Validate at least one correct answer is submitted
+questionSchema.pre('validate', function(next) {
+  const self = this;
+  if(!_.some(self.options, {isCorrect: true})) return next(new APP_ERROR({message: `Question should have atleast one correct option`, status: 400}));
+  next()
+});
 
 module.exports = MONGOOSE.model('Question', questionSchema, 'questions');
