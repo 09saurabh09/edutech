@@ -1,7 +1,7 @@
 const chapterService = require('./chapterService');
 
 module.exports = {
-    async createChapter(ctx, next) {
+    async createChapter(ctx) {
         let response = new RESPONSE_MESSAGE.GenericSuccessMessage();
         response.data = await chapterService.createChapter(ctx.request.body, ctx.state.user);
         RESPONSE_HELPER({ctx, response});
