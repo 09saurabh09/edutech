@@ -11,5 +11,11 @@ module.exports = {
         let response = new RESPONSE_MESSAGE.GenericSuccessMessage();
         response.data = await conceptService.listConcepts(ctx.query);
         RESPONSE_HELPER({ctx, response});
+    },
+
+    async getConceptCount(ctx) {
+        let response = new RESPONSE_MESSAGE.GenericSuccessMessage();
+        response.data = await conceptService.getConceptCount(ctx.query);
+        RESPONSE_HELPER({ctx, response});
     }
 }

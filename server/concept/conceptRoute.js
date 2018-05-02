@@ -15,4 +15,6 @@ router.post('/', conceptController.createConcept);
 
 internalRouter.get('/list-concepts', conceptController.listConcepts);
 
+internalRouter.get('/chapter-wise-count', conceptController.getConceptCount)
+
 module.exports = {router, internalRouter};
