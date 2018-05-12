@@ -1,3 +1,4 @@
+const idvalidator = require('mongoose-id-validator');
 const chapterSchema = new MONGOOSE.Schema({
     name:  String,
     subject: {
@@ -7,5 +8,7 @@ const chapterSchema = new MONGOOSE.Schema({
       timestamps: true
   });
   
+  chapterSchema.plugin(idvalidator);
+
   module.exports = MONGOOSE.model('Chapter', chapterSchema, 'chapters');
   

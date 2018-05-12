@@ -1,4 +1,5 @@
 const {allowedStates} = require('./questionConfig');
+const idvalidator = require('mongoose-id-validator');
 const questionSchema = new MONGOOSE.Schema({
   title: String,
   author: String,
@@ -26,7 +27,9 @@ const questionSchema = new MONGOOSE.Schema({
   }]
 }, {
     timestamps: true
-  });
+});
+
+questionSchema.plugin(idvalidator);
 
 // Validate at least one correct answer is submitted
 questionSchema.pre('validate', function(next) {
