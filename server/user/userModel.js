@@ -1,12 +1,21 @@
 const bcrypt = require('bcrypt');
+const idvalidator = require('mongoose-id-validator');
 
 const userSchema = new MONGOOSE.Schema({
     name: String,
     email: String,
-    password: String
+    password: String,
+    organization: String,
+    role: String,
+    subjects: [{id: {
+        type: MONGOOSE.Schema.Types.ObjectId, ref: 'Subject'
+    }}],
+    students: [{id: {type: String}}]
 }, {
         timestamps: true
-    });
+});
+
+userSchema.plugin(idvalidator);
 
 userSchema.pre('save', function (next) {
     const self = this;

@@ -13,5 +13,12 @@ module.exports = {
         });
         delete user.password;
         return user;
+    },
+
+    async updateUser(params, user) {
+        let update = {
+            $set: _.pick(params.user, ['name', 'email', 'organization', 'subjects', 'students'])
+        }
+        return UserModel.findOneAndUpdate({_id: user._id}, update, {new: true});
     }
 }

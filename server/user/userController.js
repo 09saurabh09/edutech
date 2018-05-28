@@ -11,5 +11,11 @@ module.exports = {
         let response = new RESPONSE_MESSAGE.GenericSuccessMessage();
         response.data = await userService.authenticate(ctx.request.body);
         RESPONSE_HELPER({ctx, response});
+    },
+
+    async updateUser(ctx) {
+        let response = new RESPONSE_MESSAGE.GenericSuccessMessage();
+        response.data = await userService.updateUser(ctx.request.body, ctx.state.user);
+        RESPONSE_HELPER({ctx, response});
     }
 }
