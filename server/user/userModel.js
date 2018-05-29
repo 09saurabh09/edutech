@@ -2,10 +2,22 @@ const bcrypt = require('bcrypt');
 const idvalidator = require('mongoose-id-validator');
 
 const userSchema = new MONGOOSE.Schema({
-    name: String,
-    email: String,
-    password: String,
-    organization: String,
+    name: {
+        type: String,
+        required: [true, "User name is required"],
+    },
+    email: {
+        type: String,
+        required: [true, "User email is required"],
+    },
+    password: {
+        type: String,
+        required: [true, "User password is required"],
+    },
+    organization: {
+        type: String,
+        required: [true, "User organization is required"],
+    },
     role: String,
     subjects: [{id: {
         type: MONGOOSE.Schema.Types.ObjectId, ref: 'Subject'
