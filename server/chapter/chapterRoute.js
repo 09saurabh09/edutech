@@ -5,8 +5,14 @@ const router = new Router({
 	prefix: '/api/chapters'
 });
 
+const internalRouter = new Router({
+	prefix: '/internal/api/chapters'
+});
+
 const chapterController = require('./chapterController');
 
 router.post('/', chapterController.createChapter);
 
-module.exports = {router};
+internalRouter.get('/chapter-count', chapterController.getChapterCount);
+
+module.exports = {router, internalRouter};

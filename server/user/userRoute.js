@@ -15,4 +15,6 @@ publicRouter.post('/', userController.createUser);
 
 publicRouter.post('/authenticate', userController.authenticate);
 
+router.put('/', userController.updateUser);
+
 module.exports = {router, publicRouter};

@@ -30,6 +30,9 @@ global.LOGGER = (text) => {
 };
 MONGOOSE.Promise = PROMISE;
 
+// API Servers
+global.STUDENT_SERVER = env.STUDENT_SERVER;
+
 global.GlobalConstant = {};
 GlobalConstant.tokenSecret = env.TOKEN_SECRET;
 GlobalConstant.tokenValidity = env.TOKEN_VALIDITY;
