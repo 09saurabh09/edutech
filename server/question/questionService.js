@@ -1,4 +1,5 @@
 const QuestionModel = MONGOOSE.model('Question');
+const ChapterModel = MONGOOSE.model('Chapter');
 const {allowedByUser, allowedByApprover, nonTerminalStates} = require('./questionConfig');
 
 module.exports = {
@@ -55,5 +56,20 @@ module.exports = {
 
     async getQuestionById(params) {
         return QuestionModel.findOne({_id: params.questionId}).populate('chapter');
+    },
+
+    async getRandomQuestionList(params) {
+        let query = {state: "approved"};
+        if (params.type == "chapter") {
+            _.assign(query, {chapter: MONGOOSE.Types.ObjectId(params.id)}); 
+        } else if (params.type == "subject") {
+            const chapterIds = await ChapterModel.find({subject: params.id}).lean().select({_id:1}).exec();
+            _.assign(query, {chapter: {$in: chapterIds.map(chapter => chapter._id)}});
+        } else {
+            throw new APP_ERROR({message: `Type is not valid`, status: 400});
+        }
+
+        let pipeline = [{$match: query}, { $sample : { size: 10 } }];
+        return QuestionModel.aggregate(pipeline).exec();
     }
 }
