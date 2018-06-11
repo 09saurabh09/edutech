@@ -17,4 +17,8 @@ publicRouter.post('/authenticate', userController.authenticate);
 
 router.put('/', userController.updateUser);
 
+router.get('/subject-profile', userController.getSubjectProfile);
+
+router.put('/change-completion-status', userController.updateEntityStatus);
+
 module.exports = {router, publicRouter};
