@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const idvalidator = require('mongoose-id-validator');
+let {setOldObjectPlugin} = require('../utils/mongoose');
 
 const userSchema = new MONGOOSE.Schema({
     name: {
@@ -19,15 +20,16 @@ const userSchema = new MONGOOSE.Schema({
         required: [true, "User organization is required"],
     },
     role: String,
-    subjects: [{id: {
+    currentSubjects: [{
         type: MONGOOSE.Schema.Types.ObjectId, ref: 'Subject'
-    }}],
-    students: [{id: {type: String}}]
+    }]
 }, {
         timestamps: true
 });
 
 userSchema.plugin(idvalidator);
+
+userSchema.plugin(setOldObjectPlugin);
 
 userSchema.pre('save', function (next) {
     const self = this;
@@ -45,5 +47,12 @@ userSchema.pre('save', function (next) {
 userSchema.statics.comparePassword = function(password, userPassword) {
     return bcrypt.compare(password, userPassword);
 }
+
+userSchema.post('findOneAndUpdate', async function() {
+    const userService = require('./userService');
+    const currentSubjects = this._update.$set.currentSubjects.toObject();
+    const userId = this._conditions._id;
+    await PROMISE.all(currentSubjects.map(currentSubject => userService.createOrUpdateUserSubject(userId, currentSubject)));
+  });
 
 module.exports = MONGOOSE.model('User', userSchema, 'users');
