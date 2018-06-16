@@ -9,10 +9,14 @@ const assignmentSchema = new MONGOOSE.Schema({
     parentType: String,
     parentId: {type: MONGOOSE.Schema.Types.ObjectId, refPath: 'parent.parentType'} 
   },
-  creater: { type: MONGOOSE.Schema.Types.ObjectId, ref: 'User' },
+  status: {
+    default: "live", // pending, live, completed
+    type: String
+  },
+  user: { type: MONGOOSE.Schema.Types.ObjectId, ref: 'User' },
   comments: [{
-    _id: false, message: String, createdAt: { type: Date, default: Date.now() }, 
-    createdBy: { type: MONGOOSE.Schema.Types.ObjectId, ref: 'User' }
+    message: String, createdAt: { type: Date, default: Date.now() }, 
+    createdByUserId: String, createdByUserType: String
   }]
 }, {
     timestamps: true

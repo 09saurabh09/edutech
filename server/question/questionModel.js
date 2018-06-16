@@ -19,7 +19,7 @@ const questionSchema = new MONGOOSE.Schema({
     type: MONGOOSE.Schema.Types.ObjectId, ref: 'Chapter'
   },
   state: { type: String, default: "open", enum: allowedStates },
-  creater: { type: MONGOOSE.Schema.Types.ObjectId, ref: 'User' },
+  user: { type: MONGOOSE.Schema.Types.ObjectId, ref: 'User' },
   approver: { type: MONGOOSE.Schema.Types.ObjectId, ref: 'User' },
   comments: [{
     _id: false, message: String, createdAt: { type: Date, default: Date.now() }, 
